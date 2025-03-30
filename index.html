@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBLAY - PBL 교육 전문가 그룹</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        :root {
+            --main-accent: #b69f58;
+            --dark-bg: #0a0a0a;
+            --dark-grey: #1a1a1a;
+            --light-text: #f5f5f5;
+            --secondary-text: #cccccc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: rgba(10, 10, 10, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--light-text);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--main-accent);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        nav ul li a:hover {
+            color: var(--main-accent);
+        }
+        
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(to bottom, rgba(10, 10, 10, 0.7), rgba(10, 10, 10, 0.9)), url('/api/placeholder/1200/800') no-repeat center center/cover;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: var(--secondary-text);
+        }
+        
+        .highlight {
+            color: var(--main-accent);
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--main-accent);
+            color: #000;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background-color: #9e8845;
+            transform: translateY(-2px);
+        }
+        
+        section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 3px;
+            background-color: var(--main-accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: var(--secondary-text);
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 40px;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+            color: var(--secondary-text);
+        }
+        
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .services {
+            background-color: var(--dark-grey);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--main-accent);
+            margin-bottom: 20px;
+        }
+        
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+        
+        .service-card p {
+            color: var(--secondary-text);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .member-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--main-accent);
+        }
+        
+        .team-member h3 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .team-member p {
+            color: var(--main-accent);
+            margin-bottom: 15px;
+        }
+        
+        .team-member .bio {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+        
+        .contact {
+            background-color: var(--dark-grey);
+        }
+        
+        .contact-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        
+        .contact-info {
+            flex: 1;
+            min-width: 300px;
+            padding-right: 40px;
+        }
+        
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+        
+        .contact-info p {
+            margin-bottom: 30px;
+            color: var(--secondary-text);
+        }
+        
+        .contact-details {
+            margin-bottom: 30px;
+        }
+        
+        .contact-details div {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .contact-icon {
+            color: var(--main-accent);
+            margin-right: 15px;
+            font-size: 1.2rem;
+        }
+        
+        .contact-form {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #333;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--light-text);
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--main-accent);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 150px;
+        }
+        
+        footer {
+            background-color: #000;
+            padding: 30px 0;
+            text-align: center;
+        }
+        
+        footer p {
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            nav ul li {
+                margin-left: 15px;
+                margin-right: 15px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .about-text, .about-image, .contact-info, .contact-form {
+                padding-right: 0;
+                margin-bottom: 40px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+        }
+    </style>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="#" class="logo">PBL<span>AY</span></a>
+            <div style="color: var(--secondary-text); font-size: 0.9rem; margin-top: 5px;">PBL 교육 전문가 그룹</div>
+            <nav>
+                <ul>
+                    <li><a href="#home">홈</a></li>
+                    <li><a href="#about">소개</a></li>
+                    <li><a href="#services">서비스</a></li>
+                    <li><a href="#team">전문가</a></li>
+                    <li><a href="#contact">문의하기</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>PBL을 통한 <span class="highlight">교육의 혁신</span>을 이끌어갑니다</h1>
+                <p><strong>PBLAY</strong>(PBL + PLAY)는 PBL을 효과적으로 활용할 수 있도록 돕는 저서와 교구를 개발하여, 교육 현장에서 실질적인 변화를 만들어갑니다.</p>
+                <a href="#contact" class="btn">문의하기</a>
+            </div>
+        </div>
+    </section>
+    
+    <section class="about" id="about">
+        <div class="container">
+            <div class="section-title">
+                <h2>PBLAY 소개</h2>
+                <p>PBL수업의 패러다임을 바꾸는 교육방법론</p>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>인공지능을 활용한 PBLAY</h3>
+                    <p><strong>PBLAY</strong>(PBL + PLAY)는 프로젝트 기반 학습(PBL)을 교육 현장에 효과적으로 도입하고 활용할 수 있도록 돕는 전문가 그룹입니다. 4명의 교육 전문가가 모여, 각자의 전문 분야를 바탕으로 혁신적인 교육 프로그램과 교재를 개발하고 있습니다.</p>
+                    <p>우리는 이론에 그치지 않고 실제 교육 현장에서 적용 가능한 실용적인 솔루션을 제공합니다. PBLAY의 모든 프로그램은 교육자와 학습자 모두가 쉽게 접근하고 활용할 수 있도록 설계되었습니다.</p>
+                    <p>PBLAY와 함께라면, 학생들의 창의성, 비판적 사고력, 문제 해결 능력, 협업 능력을 키우는 새로운 교육 패러다임을 경험할 수 있습니다.</p>
+                </div>
+                <div class="about-image">
+                    <img src="/api/placeholder/500/350" alt="PBLAY 교육 현장 이미지">
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>서비스</h2>
+                <p>PBLAY가 제공하는 다양한 교육 솔루션</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>PBLAY 저서(가제)</h3>
+                    <p>PBLAY를 소개하는 가이드북으로써, 퍼실리테이션 기법과 인공지능을 활용한 수업계획서 작성 및 생기부 작성까지 PBL수업의 A to Z 를 소개합니다.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                    <h3>교사 연수</h3>
+                    <p>PBL을 효과적으로 실행할 수 있는 교사 연수 프로그램을 제공합니다. 현장 경험을 바탕으로 실질적인 지도 방법을 전수합니다.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop"></i>
+                    </div>
+                    <h3>디지털 콘텐츠</h3>
+                    <p>온라인 학습 환경에 적합한 디지털 PBL 콘텐츠를 개발합니다. 언제 어디서나 접근 가능한 학습 자료를 제공합니다.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>컨설팅</h3>
+                    <p>학교 및 교육 기관을 위한 맞춤형 PBL 컨설팅 서비스를 제공합니다. 각 기관의 특성과 요구에 맞는 프로그램을 설계합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="team" id="team">
+        <div class="container">
+            <div class="section-title">
+                <h2>전문가 팀</h2>
+                <p>PBLAY를 이끌어가는 4명의 교육 전문가</p>
+            </div>
+            <div class="team-grid">
+                <div class="team-member">
+                    <img src="/api/placeholder/250/250" alt="김현우 교수" class="member-img">
+                    <h3>김현선</h3>
+                    <p>인성교육전문가</p>
+                    <p class="bio">오랜시간 다양한 학생들과의 수업을 통한 놀이식 PBL수업을 연구합니다.</p>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/250/250" alt="이지현 연구원" class="member-img">
+                    <h3>조지수</h3>
+                    <p>SW교육전문가</p>
+                    <p class="bio">SW/AI교육전문가로 인공지능을 활용한 수업개발 및 활용법을 연구합니다.</p>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/250/250" alt="박민준 교사" class="member-img">
+                    <h3>최인경</h3>
+                    <p>입시교육전문가</p>
+                    <p class="bio">다년간 진로진학을 연구하고, 실제 학교에서 적용할 수 있는 프로세스를 설계합니다.</p>
+                </div>
+                <div class="team-member">
+                    <img src="/api/placeholder/250/250" alt="최서연 디자이너" class="member-img">
+                    <h3>허안나</h3>
+                    <p>경험디자인전문가</p>
+                    <p class="bio">퍼실리테이터 전문가로 경험이 콘텐츠가 될 수 있도록 더 나은 방향을 제안합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>문의하기</h2>
+                <p>PBLAY와 함께 교육의 변화를 만들어가세요</p>
+            </div>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>연락처 정보</h3>
+                    <p>PBLAY에 관심이 있으시거나 협업을 원하시면 언제든지 연락 주세요. 최대한 빠르게 답변 드리겠습니다.</p>
+                    <div class="contact-details">
+                        <div>
+                            <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                            <span>pblaymaster@gmail.com</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="이름" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control" placeholder="이메일" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="제목" required>
+                        </div>
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="메시지" required></textarea>
+                        </div>
+                        <button type="submit" class="btn">보내기</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 PBLAY. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
