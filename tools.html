@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBLAY 카드 - 교구</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "IBM Plex Sans KR", 'Noto Sans KR', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        :root {
+            --main-accent: #b69f58;
+            --dark-bg: #0a0a0a;
+            --dark-grey: #1a1a1a;
+            --light-text: #f5f5f5;
+            --secondary-text: #cccccc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: rgba(10, 10, 10, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--light-text);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--main-accent);
+        }
+        
+        .back-btn {
+            background-color: var(--main-accent);
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #9e8845;
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            padding-top: 120px;
+            padding-bottom: 80px;
+        }
+        
+        .cards-section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h1::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--main-accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: var(--secondary-text);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cards-overview {
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+            margin-bottom: 80px;
+        }
+        
+        .cards-image {
+            flex: 0 0 400px;
+            text-align: center;
+        }
+        
+        .cards-image img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+        
+        .cards-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        .cards-info {
+            flex: 1;
+        }
+        
+        .cards-info h2 {
+            font-size: 2.2rem;
+            color: var(--main-accent);
+            margin-bottom: 30px;
+        }
+        
+        .cards-info p {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            margin-bottom: 25px;
+            line-height: 1.8;
+        }
+        
+        .benefit-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .benefit-item {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 4px solid var(--main-accent);
+            transition: all 0.3s ease;
+        }
+        
+        .benefit-item:hover {
+            background-color: rgba(255, 255, 255, 0.08);
+            transform: translateX(10px);
+        }
+        
+        .benefit-number {
+            color: var(--main-accent);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        
+        .benefit-title {
+            color: var(--light-text);
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        
+        .benefit-description {
+            color: var(--secondary-text);
+            line-height: 1.6;
+        }
+        
+        .video-section {
+            background-color: var(--dark-grey);
+            padding: 60px 0;
+            margin: 60px 0;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .video-title {
+            font-size: 2.5rem;
+            color: var(--main-accent);
+            margin-bottom: 30px;
+        }
+        
+        .video-subtitle {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .video-container {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 40px;
+            border: 2px dashed var(--main-accent);
+        }
+        
+        .video-placeholder {
+            width: 100%;
+            height: 400px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--secondary-text);
+            font-size: 1.2rem;
+        }
+        
+        .video-icon {
+            font-size: 4rem;
+            color: var(--main-accent);
+            margin-bottom: 20px;
+        }
+        
+        /* 실제 비디오가 추가될 때 사용할 스타일 */
+        .video-iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .cards-overview {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .cards-image {
+                flex: none;
+            }
+            
+            .section-title h1 {
+                font-size: 2.5rem;
+            }
+            
+            .cards-info h2 {
+                font-size: 1.8rem;
+            }
+            
+            .video-container {
+                padding: 20px;
+            }
+            
+            .video-placeholder {
+                height: 250px;
+            }
+            
+            .video-icon {
+                font-size: 3rem;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">PBL<span>AY</span></a>
+            <a href="index.html" class="back-btn">메인으로</a>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            <section class="cards-section">
+                <div class="section-title">
+                    <h1>PBLAY 카드</h1>
+                    <p>PBL 수업을 쉽고 재미있게 만드는 교구</p>
+                </div>
+                
+                <div class="cards-overview">
+                    <div class="cards-image">
+                        <img src="images/pblay-cards.jpg" alt="PBLAY 카드 이미지" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzUwIiBoZWlnaHQ9IjQ2NyIgdmlld0JveD0iMCAwIDM1MCA0NjciIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNTAiIGhlaWdodD0iNDY3IiBmaWxsPSIjMUExQTFBIiByeD0iMTUiLz4KPHJlY3QgeD0iMjAiIHk9IjIwIiB3aWR0aD0iMzEwIiBoZWlnaHQ9IjQyNyIgZmlsbD0iIzBBMEEwQSIgcng9IjEwIi8+Cjx0ZXh0IHg9IjE3NSIgeT0iMTAwIiBmaWxsPSIjYjY5ZjU4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIj5QQkxBWSDy7KOk7Yyw64<L3RleHQ+Cjx0ZXh0IHg9IjE3NSIgeT0iMjAwIiBmaWxsPSIjZjVmNWY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiPu2OvOyEgeupkCDtg7zqtazs5pc90L3RleHQ+Cjx0ZXh0IHg9IjE3NSIgeT0iMzAwIiBmaWxsPSIjYjY5ZjU4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjBweDtjNJyNUjwdmV4dD4KPC9zdmc+'">
+                    </div>
+                    
+                    <div class="cards-info">
+                        <h2>왜 PBLAY 카드가 필요한가?</h2>
+                        <p>본 PBLAY 카드는 복잡하고 어려울 수 있는 PBLAY 과정을 직관적이고 재미있는 카드 형태로 풀어내어, 교사와 학생 모두 쉽게 PBLAY 수업에 참여하고 몰입할 수 있도록 설계되었습니다.</p>
+                        
+                        <ul class="benefit-list">
+                            <li class="benefit-item">
+                                <div class="benefit-number">1. 시야 확장</div>
+                                <div class="benefit-title"></div>
+                                <div class="benefit-description">학생들은 종종 자신의 경험과 관점에 제한된 문제만 생각하는 경향이 있습니다. 페르소나 카드를 통해 다양한 상황과 배경을 가진 사람들의 관점에서 생각해볼 수 있습니다.</div>
+                            </li>
+                            
+                            <li class="benefit-item">
+                                <div class="benefit-number">2. 구조화된 접근</div>
+                                <div class="benefit-title"></div>
+                                <div class="benefit-description">카드게임 형식은 PBL의 복잡한 과정을 단계별로 구조화하여 학생들이 체계적으로 접근할 수 있게 돕습니다.</div>
+                            </li>
+                            
+                            <li class="benefit-item">
+                                <div class="benefit-number">3. 자기 주도적 문제 해결</div>
+                                <div class="benefit-title"></div>
+                                <div class="benefit-description">'문제 카드'와 '행동 카드'를 활용하여 학생 스스로 문제를 정의하고 해결 과정을 주도적으로 설계합니다.</div>
+                            </li>
+                            
+                            <li class="benefit-item">
+                                <div class="benefit-number">4. 미래 기술 활용 능력 강화</div>
+                                <div class="benefit-title"></div>
+                                <div class="benefit-description">현대 사회에서 필수적인 AI 활용 능력을 자연스럽게 학습 과정에 통합합니다.</div>
+                            </li>
+                            
+                            <li class="benefit-item">
+                                <div class="benefit-number">5. 역량 중심 평가</div>
+                                <div class="benefit-title"></div>
+                                <div class="benefit-description">단순한 결과물 평가를 넘어, 과정에서 발휘된 다양한 역량을 인식하고 성찰할 수 있는 기회를 제공합니다.</div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="video-section">
+                <h2 class="video-title">카드 사용법 가이드</h2>
+                <p class="video-subtitle">PBLAY 카드를 효과적으로 활용하는 방법을 동영상으로 안내해드립니다</p>
+                
+                <div class="video-container">
+                    <!-- 실제 동영상 임베드 코드가 들어갈 자리 -->
+                    <div class="video-placeholder">
+                        <div class="video-icon">
+                            <i class="fas fa-play-circle"></i>
+                        </div>
+                        <p>카드 사용법 가이드 동영상</p>
+                        <p style="font-size: 0.9rem; margin-top: 10px;">동영상이 준비되면 이곳에 표시됩니다</p>
+                    </div>
+                    
+                    <!-- 실제 동영상을 추가할 때는 위의 placeholder를 삭제하고 아래와 같이 사용하세요
+                    <iframe class="video-iframe" 
+                            src="https://www.youtube.com/embed/VIDEO_ID" 
+                            title="PBLAY 카드 사용법" 
+                            allowfullscreen>
+                    </iframe>
+                    -->
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
