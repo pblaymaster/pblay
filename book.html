@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PBLAY 저서 - 퍼실리AI터</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "IBM Plex Sans KR", 'Noto Sans KR', sans-serif;
+        }
+        
+        body {
+            background-color: #0a0a0a;
+            color: #f5f5f5;
+            line-height: 1.6;
+        }
+        
+        :root {
+            --main-accent: #b69f58;
+            --dark-bg: #0a0a0a;
+            --dark-grey: #1a1a1a;
+            --light-text: #f5f5f5;
+            --secondary-text: #cccccc;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: rgba(10, 10, 10, 0.9);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--light-text);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        
+        .logo span {
+            color: var(--main-accent);
+        }
+        
+        .back-btn {
+            background-color: var(--main-accent);
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #9e8845;
+            transform: translateY(-2px);
+        }
+        
+        .main-content {
+            padding-top: 120px;
+            padding-bottom: 80px;
+        }
+        
+        .book-section {
+            padding: 60px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h1 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h1::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background-color: var(--main-accent);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            color: var(--secondary-text);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .book-overview {
+            display: flex;
+            gap: 60px;
+            align-items: flex-start;
+            margin-bottom: 80px;
+        }
+        
+        .book-cover {
+            flex: 0 0 400px;
+            text-align: center;
+        }
+        
+        .book-cover img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+        
+        .book-cover img:hover {
+            transform: scale(1.05);
+        }
+        
+        .book-info {
+            flex: 1;
+        }
+        
+        .book-info h2 {
+            font-size: 2.2rem;
+            color: var(--main-accent);
+            margin-bottom: 30px;
+        }
+        
+        .book-info p {
+            font-size: 1.1rem;
+            color: var(--secondary-text);
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        
+        .toc-section {
+            background-color: var(--dark-grey);
+            padding: 60px 0;
+            margin: 60px 0;
+            border-radius: 20px;
+        }
+        
+        .toc-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--main-accent);
+            margin-bottom: 40px;
+        }
+        
+        .toc-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .toc-chapter {
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            border-left: 4px solid var(--main-accent);
+        }
+        
+        .toc-chapter h3 {
+            font-size: 1.5rem;
+            color: var(--light-text);
+            margin-bottom: 15px;
+        }
+        
+        .toc-chapter ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+        
+        .toc-chapter li {
+            color: var(--secondary-text);
+            margin-bottom: 8px;
+            position: relative;
+        }
+        
+        .toc-chapter li::before {
+            content: "•";
+            color: var(--main-accent);
+            position: absolute;
+            left: -15px;
+        }
+        
+        .facilitator-section {
+            padding: 60px 0;
+        }
+        
+        .facilitator-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--main-accent);
+            margin-bottom: 40px;
+        }
+        
+        .facilitator-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+        }
+        
+        .facilitator-content p {
+            font-size: 1.2rem;
+            color: var(--secondary-text);
+            line-height: 1.8;
+            text-align: center;
+        }
+        
+        .highlight {
+            color: var(--main-accent);
+            font-weight: 600;
+        }
+        
+        .gpts-section {
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .gpt-card {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            min-width: 300px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+        
+        .gpt-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--main-accent);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .gpt-card h3 {
+            font-size: 1.8rem;
+            color: var(--main-accent);
+            margin-bottom: 20px;
+        }
+        
+        .gpt-card p {
+            color: var(--secondary-text);
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+        }
+        
+        .gpt-link {
+            display: inline-block;
+            background-color: var(--main-accent);
+            color: #000;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .gpt-link:hover {
+            background-color: #9e8845;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .book-overview {
+                flex-direction: column;
+                gap: 40px;
+            }
+            
+            .book-cover {
+                flex: none;
+            }
+            
+            .section-title h1 {
+                font-size: 2.5rem;
+            }
+            
+            .book-info h2 {
+                font-size: 1.8rem;
+            }
+            
+            .gpts-section {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .gpt-card {
+                min-width: 280px;
+            }
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">PBL<span>AY</span></a>
+            <a href="index.html" class="back-btn">메인으로</a>
+        </div>
+    </header>
+    
+    <main class="main-content">
+        <div class="container">
+            <section class="book-section">
+                <div class="section-title">
+                    <h1>PBLAY 저서</h1>
+                    <p>퍼실리AI터: 생기부 걱정 끝! PBLAY 수업 혁신</p>
+                </div>
+                
+                <div class="book-overview">
+                    <div class="book-cover">
+                        <img src="images/book-cover.jpg" alt="PBLAY 저서 표지" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzUwIiBoZWlnaHQ9IjQ2NyIgdmlld0JveD0iMCAwIDM1MCA0NjciIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzNTAiIGhlaWdodD0iNDY3IiBmaWxsPSIjMUExQTFBIiByeD0iMTUiLz4KPHJlY3QgeD0iMjAiIHk9IjIwIiB3aWR0aD0iMzEwIiBoZWlnaHQ9IjQyNyIgZmlsbD0iIzBBMEEwQSIgcng9IjEwIi8+Cjx0ZXh0IHg9IjE3NSIgeT0iMTAwIiBmaWxsPSIjYjY5ZjU4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIGZvbnQtd2VpZ2h0PSJib2xkIj5QQkxBWSDsoIAsp448L3RleHQ+Cjx0ZXh0IHg9IjE3NSIgeT0iMjAwIiBmaWxsPSIjZjVmNWY1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMTgiPu2NvOyLnOumrEFJ7YSwPC90ZXh0Pgo8dGV4dCB4PSIxNzUiIHk9IjIzMCIgZmlsbD0iI2Y1ZjVmNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2Ij7sg53q4oCZqOu2gOyeIeyngDwhPC90ZXh0Pgo8dGV4dCB4PSIxNzUiIHk9IjI2MCIgZmlsbD0iI2Y1ZjVmNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2Ij5QQkxBWSDsiJjsl4Aqe+yLoem9hPC90ZXh0Pgo8L3N2Zz4K'">
+                    </div>
+                    
+                    <div class="book-info">
+                        <h2>기획 의도</h2>
+                        <p>기존의 PBL(Project-Based Learning)은 교육 철학은 훌륭하지만 실제 수업에 적용하기에는 시간, 구조, 생기부 연계 등 여러 현실적 장벽이 존재합니다.</p>
+                        
+                        <p>《<strong class="highlight">퍼실리AI터: 생기부 걱정 끝! PBLAY 수업 혁신</strong>》는 이러한 현장의 어려움을 해결하기 위해 만들어진 실전 중심의 가이드북입니다.</p>
+                        
+                        <p>이 책은 교사들이 PBL 수업을 직접 설계하고 운영할 수 있도록 돕는 PBLAY 방법론을 소개하며, <span class="highlight">'학생 참여를 이끄는 퍼실리테이션'</span>, <span class="highlight">'AI 도구를 활용한 수업 설계'</span>, <span class="highlight">'생기부 연계'</span>라는 세 가지 차별화를 중심으로 구성되어 있습니다.</p>
+                        
+                        <p>PBLAY 카드, GPTs AI 템플릿, 생기부 문장 예시 등 다양한 실습 도구를 함께 제공하여, 책 한 권만으로 수업부터 생기부까지 완성할 수 있는 실행력을 갖춘 안내서입니다.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="toc-section">
+                <h2 class="toc-title">목 차</h2>
+                <div class="toc-content">
+                    <div class="toc-chapter">
+                        <h3>제1장. AI시대의 새로운 교육 PBLAY</h3>
+                        <ul>
+                            <li>왜 PBLAY인가?</li>
+                            <li>AI 시대 새로운 교육 청사진</li>
+                            <li>두 시간이면 된다고? Pre-PBLAY</li>
+                            <li>학생들의 잠재력을 200% 끌어올리는 PBLAY</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="toc-chapter">
+                        <h3>제2장. 학습자 참여를 만드는 러닝 퍼실리테이션 스킬</h3>
+                        <ul>
+                            <li>움직이지 않는 학습자를 변화시키는 한 마디</li>
+                            <li>현장에서 바로 적용하는 PBLAY 실전 노하우</li>
+                            <li>어떤 상황에도 흔들리지 않는 대처 스킬</li>
+                            <li>체크 필수! 퍼실리AI터의 무기</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="toc-chapter">
+                        <h3>제3장. AI, PBLAY 수업의 게임 체인저</h3>
+                        <ul>
+                            <li>AI 시대의 교육, 왜 PBLAY와의 융합인가?</li>
+                            <li>AI 제대로 활용하기 : AI 나.잘.알. 만들기</li>
+                            <li>AI가 대신 뛰어주는 PBLAY 단계별 준비</li>
+                            <li>부록 : 무료 버전과 유료 버전의 AI 비교</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="toc-chapter">
+                        <h3>제4장. 사례로 경험하는 PBLAY활동 프로젝트</h3>
+                        <ul>
+                            <li>인식개선 프로젝트, "나do 지속가능해."</li>
+                            <li>서비스/창업 프로젝트, "Balancer"</li>
+                            <li>제품 설계 프로젝트, "나무젓가락 Zero"</li>
+                            <li>혼합 프로젝트, "Sleep on/off"</li>
+                            <li>사회 프로젝트, "워킹 스쿨버스"</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="toc-chapter">
+                        <h3>제5장. PBLAY로 완성하는 스토리가 있는 생기부</h3>
+                        <ul>
+                            <li>PBLAY와 생기부의 만남</li>
+                            <li>현장에서 인정받은 PBLAY 생기부</li>
+                            <li>입시에서 주목받는 PBLAY 활동 포인트</li>
+                            <li>다음 과정으로 이어지는 PBLAY</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="facilitator-section">
+                <h2 class="facilitator-title">퍼실리AI터란?</h2>
+                <div class="facilitator-content">
+                    <p><strong class="highlight">'퍼실리테이터(Facilitator)'</strong>와 <strong class="highlight">'AI(Ask & Inquire)'</strong>를 결합한 용어로, 수업을 진행하고 촉진하는 사람을 넘어 <strong class="highlight">긍정 탐색을 통해 학습자의 가능성과 미래를 함께 상상하고 지원하는 질문 중심의 동반자</strong>를 뜻합니다.</p>
+                    
+                    <p>여기서 'AI'는 인공지능이 아닌, 교사의 탐색적 질문(Ask)과 깊이 있는 성찰(Inquire)의 태도를 상징합니다.</p>
+                    
+                    <p>퍼실리AI터는 수업 속에서 일어나는, 작지만 중요한 순간들을 읽어내고, <strong class="highlight">적절한 질문과 조율을 통해 학습자의 전환점을 끌어내는 존재</strong>입니다.</p>
+                </div>
+                
+                <div class="gpts-section">
+                    <div class="gpt-card">
+                        <h3>PBLAY MASTER</h3>
+                        <p>PBLAY 수업 설계와 운영을 위한 전문 AI 도우미</p>
+                        <a href="https://chatgpt.com/g/g-67ee84075c408191a40b7dc982707bba-pblay-master" target="_blank" class="gpt-link">바로가기</a>
+                    </div>
+                    
+                    <div class="gpt-card">
+                        <h3>SCOPE (AI 부스)</h3>
+                        <p>학생 개별 피드백과 성찰을 위한 AI 상담 시스템</p>
+                        <a href="https://chatgpt.com/g/g-67f695ed3b148191873d9ffa9f414383-scope?model=gpt-4o" target="_blank" class="gpt-link">바로가기</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
