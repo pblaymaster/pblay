@@ -137,7 +137,12 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             transition: transform 0.3s ease;
-        }
+            margin-bottom: 20px; /* 이미지 간격 추가 */
+}
+
+        .cards-image img:last-child {
+            margin-bottom: 0; /* 마지막 이미지는 하단 여백 제거 */
+}
         
         .cards-image img:hover {
             transform: scale(1.05);
@@ -313,6 +318,7 @@
                 <div class="cards-overview">
                     <div class="cards-image">
                         <img src="images/card.jpg" alt="PBLAY 카드 이미지">
+                        <img src="images/student_card_use.png" alt="PBLAY 카드 사용 이미지">
                     </div>
                     
                     <div class="cards-info">
